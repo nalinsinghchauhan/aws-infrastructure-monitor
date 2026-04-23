@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard | AWS Infrastructure Monitor{% endblock %}
+
+{% block content %}
+<section class="dashboard-head">
+    <h1>EC2 Dashboard</h1>
+    <button id="refresh-btn" class="btn" type="button">Refresh</button>
+</section>
+
+<section class="stats-grid">
+    <article class="card"><h3>Total</h3><p id="total-count">0</p></article>
+    <article class="card"><h3>Running</h3><p id="running-count">0</p></article>
+    <article class="card"><h3>Stopped</h3><p id="stopped-count">0</p></article>
+</section>
+
+<section class="card">
+    <table id="resources-table">
+        <thead>
+            <tr>
+                <th>Instance ID</th>
+                <th>Name</th>
+                <th>State</th>
+                <th>Region</th>
+                <th>Public IP</th>
+                <th>Instance Type</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</section>
+
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}

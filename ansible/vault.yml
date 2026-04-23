@@ -1,0 +1,5 @@
+# Encrypt before production: ansible-vault encrypt ansible/vault.yml
+flask_secret_key: "change-me"
+database_url: "mysql+pymysql://admin:change-me@db-endpoint:3306/infra_monitor"
+repo_url: "https://github.com/YOUR_USERNAME/aws-infrastructure-monitor"
+cloudwatch_log_group: "/aws/infra-monitor/flask"

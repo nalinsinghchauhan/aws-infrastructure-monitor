@@ -1,0 +1,70 @@
+---
+- name: Ensure infra-monitor group exists
+  group:
+    name: infra-monitor
+    state: present
+
+- name: Ensure infra-monitor service user exists
+  user:
+    name: infra-monitor
+    group: infra-monitor
+    system: true
+    create_home: false
+    shell: /usr/sbin/nologin
+
+- name: Ensure application directories exist
+  file:
+    path: "{{ item.path }}"
+    state: directory
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+    mode: "{{ item.mode }}"
+  loop:
+    - { path: "/opt/infra-monitor", owner: "infra-monitor", group: "infra-monitor", mode: "0755" }
+    - { path: "/var/log/infra-monitor", owner: "infra-monitor", group: "infra-monitor", mode: "0755" }
+
+- name: Clone application repository
+  git:
+    repo: "{{ repo_url }}"
+    dest: /opt/infra-monitor
+    version: main
+    force: true
+  notify: restart infra monitor
+
+- name: Ensure application path ownership is correct
+  file:
+    path: /opt/infra-monitor
+    state: directory
+    recurse: true
+    owner: infra-monitor
+    group: infra-monitor
+
+- name: Install Python dependencies
+  pip:
+    requirements: /opt/infra-monitor/backend/requirements.txt
+    virtualenv: /opt/infra-monitor/venv
+  notify: restart infra monitor
+
+- name: Create environment file
+  template:
+    src: env.j2
+    dest: /opt/infra-monitor/backend/.env
+    mode: "0600"
+    owner: infra-monitor
+    group: infra-monitor
+  notify: restart infra monitor
+
+- name: Install systemd service file
+  template:
+    src: infra-monitor.service.j2
+    dest: /etc/systemd/system/infra-monitor.service
+    mode: "0644"
+  notify:
+    - reload systemd
+    - restart infra monitor
+
+- name: Start Flask app service
+  systemd:
+    name: infra-monitor
+    enabled: true
+    state: started

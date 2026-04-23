@@ -1,0 +1,11 @@
+---
+- name: Configure and deploy AWS Infrastructure Monitor
+  hosts: app_servers
+  become: true
+  vars_files:
+    - vault.yml
+  roles:
+    - python
+    - nginx
+    - app
+    - monitoring

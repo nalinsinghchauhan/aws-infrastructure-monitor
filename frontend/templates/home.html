@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Home | AWS Infrastructure Monitor{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h1>AWS Infrastructure Monitor</h1>
+    <p>Track live EC2 status, IP addresses, and instance states from a secure Flask dashboard.</p>
+    <a class="btn" href="{{ url_for('auth.login_page') }}">Go to Login</a>
+</section>
+{% endblock %}

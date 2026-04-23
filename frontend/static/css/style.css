@@ -1,0 +1,125 @@
+:root {
+    --bg: #f4f7fb;
+    --surface: #ffffff;
+    --ink: #1b1f2a;
+    --brand: #14532d;
+    --danger: #b91c1c;
+    --success: #166534;
+    --border: #d7dfeb;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Tahoma, sans-serif;
+    color: var(--ink);
+    background: linear-gradient(180deg, #eef4ff 0%, var(--bg) 100%);
+}
+
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+}
+
+.brand {
+    font-weight: 700;
+    color: var(--ink);
+    text-decoration: none;
+}
+
+.container {
+    width: min(1100px, 92vw);
+    margin: 2rem auto;
+}
+
+.hero,
+.card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+}
+
+.btn {
+    display: inline-block;
+    border: 0;
+    border-radius: 8px;
+    background: var(--brand);
+    color: #fff;
+    text-decoration: none;
+    padding: 0.55rem 0.9rem;
+    cursor: pointer;
+}
+
+.auth-card {
+    max-width: 520px;
+    margin: 0 auto;
+}
+
+.stack {
+    display: grid;
+    gap: 0.75rem;
+}
+
+label {
+    display: grid;
+    gap: 0.35rem;
+}
+
+input {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.6rem;
+}
+
+.error {
+    color: var(--danger);
+}
+
+.success {
+    color: var(--success);
+}
+
+.dashboard-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+#resources-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#resources-table th,
+#resources-table td {
+    border-bottom: 1px solid var(--border);
+    padding: 0.7rem;
+    text-align: left;
+}
+
+@media (max-width: 760px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    #resources-table {
+        display: block;
+        overflow-x: auto;
+    }
+}

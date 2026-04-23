@@ -1,0 +1,18 @@
+[Unit]
+Description=AWS Infrastructure Monitor Flask App
+After=network.target
+
+[Service]
+User=infra-monitor
+Group=infra-monitor
+WorkingDirectory=/opt/infra-monitor/backend
+EnvironmentFile=/opt/infra-monitor/backend/.env
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/opt/infra-monitor/venv/bin/python app.py
+Restart=always
+RestartSec=3
+StandardOutput=append:/var/log/infra-monitor/app.log
+StandardError=append:/var/log/infra-monitor/error.log
+
+[Install]
+WantedBy=multi-user.target
