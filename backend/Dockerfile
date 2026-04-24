@@ -8,4 +8,5 @@ COPY backend /app
 COPY frontend /frontend
 
 ENV PYTHONUNBUFFERED=1
+EXPOSE 5001
 CMD ["python", "app.py"]
