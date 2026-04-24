@@ -13,6 +13,7 @@
   yum:
     name: https://amazoncloudwatch-agent.s3.amazonaws.com/amazon_linux/amd64/latest/amazon-cloudwatch-agent.rpm
     state: present
+    disable_gpg_check: yes
   when: ansible_os_family == "RedHat"
 
 - name: Ensure CloudWatch config directory exists

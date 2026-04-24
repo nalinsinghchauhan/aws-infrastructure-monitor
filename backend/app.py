@@ -1,10 +1,11 @@
 from flask import Flask
+from typing import Optional
 
 from config import Config
 from extensions import bcrypt, db, login_manager
 
 
-def create_app(test_config: dict | None = None):
+def create_app(test_config: Optional[dict] = None):
     app = Flask(
         __name__,
         template_folder="../frontend/templates",

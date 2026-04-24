@@ -23,13 +23,29 @@
     - { path: "/opt/infra-monitor", owner: "infra-monitor", group: "infra-monitor", mode: "0755" }
     - { path: "/var/log/infra-monitor", owner: "infra-monitor", group: "infra-monitor", mode: "0755" }
 
+- name: Remove existing app directory for clean clone
+  file:
+    path: /opt/infra-monitor
+    state: absent
+  become: yes
+
 - name: Clone application repository
   git:
     repo: "{{ repo_url }}"
     dest: /opt/infra-monitor
     version: main
-    force: true
-  notify: restart infra monitor
+    force: yes
+    update: yes
+  become: yes
+
+- name: Fix ownership of app directory
+  file:
+    path: /opt/infra-monitor
+    owner: infra-monitor
+    group: infra-monitor
+    recurse: yes
+    state: directory
+  become: yes
 
 - name: Ensure application path ownership is correct
   file:
@@ -43,6 +59,7 @@
   pip:
     requirements: /opt/infra-monitor/backend/requirements.txt
     virtualenv: /opt/infra-monitor/venv
+    virtualenv_python: python3
   notify: restart infra monitor
 
 - name: Create environment file
