@@ -77,14 +77,12 @@ EOF
             steps {
                 withCredentials([
                     [$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials'],
-                    file(credentialsId: 'ansible-vault-password', variable: 'VAULT_FILE'),
-                    sshUserPrivateKey(credentialsId: 'ec2-ssh-key', keyFileVariable: 'SSH_KEY')
+                    file(credentialsId: 'ansible-vault-password', variable: 'VAULT_FILE')
                 ]) {
                     sh '''
-                        chmod 600 "$SSH_KEY"
                         ansible-playbook -i ansible/inventory/hosts.ini ansible/site.yml \
                           --vault-password-file "$VAULT_FILE" \
-                          --private-key "$SSH_KEY"
+                          --private-key /var/jenkins_home/.ssh/esdproject.pem
                     '''
                 }
             }
