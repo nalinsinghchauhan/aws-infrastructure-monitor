@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/YOUR_USERNAME/aws-infrastructure-monitor'
+                git branch: 'main', url: 'https://github.com/nalinsinghchauhan/aws-infrastructure-monitor'
             }
         }
 
@@ -87,11 +87,6 @@ echo "EC2 Public IP: ${EC2_IP}"
 echo "Application URL: ${APP_URL}"
 '''
             }
-        }
-    }
-
-    post {
-        success {
             echo 'Deployment succeeded!'
         }
         failure {
