@@ -14,8 +14,14 @@ pipeline {
 
         stage('Install Test Dependencies') {
             steps {
-                sh 'python3 -m venv .venv'
-                sh './.venv/bin/pip install -r backend/requirements.txt'
+                sh '''
+                    apt-get update -y || yum update -y
+                    apt-get install -y python3 python3-pip python3-venv || yum install -y python3 python3-pip
+                    cd backend
+                    python3 -m venv .venv
+                    . .venv/bin/activate
+                    pip install -r requirements.txt
+                '''
             }
         }
 
