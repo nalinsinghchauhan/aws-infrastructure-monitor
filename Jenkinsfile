@@ -15,8 +15,6 @@ pipeline {
         stage('Install Test Dependencies') {
             steps {
                 sh '''
-                    apt-get update -y || yum update -y
-                    apt-get install -y python3 python3-pip python3-venv || yum install -y python3 python3-pip
                     cd backend
                     python3 -m venv .venv
                     . .venv/bin/activate
@@ -27,7 +25,11 @@ pipeline {
 
         stage('Test') {
             steps {
-                sh 'cd backend && ../.venv/bin/pytest tests/ -v'
+                sh '''
+                    cd backend
+                    . .venv/bin/activate
+                    pytest tests/ -v
+                '''
             }
         }
 
