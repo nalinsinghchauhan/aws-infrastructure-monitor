@@ -77,9 +77,14 @@ EOF
             steps {
                 withCredentials([
                     [$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials'],
-                    file(credentialsId: 'ansible-vault-password', variable: 'VAULT_FILE')
+                    file(credentialsId: 'ansible-vault-password', variable: 'VAULT_FILE'),
+                    sshUserPrivateKey(credentialsId: 'ec2-ssh-key', keyFileVariable: 'SSH_KEY')
                 ]) {
-                    sh 'ansible-playbook -i ansible/inventory/hosts.ini ansible/site.yml --vault-password-file "$VAULT_FILE"'
+                    sh '''
+                        ansible-playbook -i ansible/inventory/hosts.ini ansible/site.yml \
+                          --vault-password-file "$VAULT_FILE" \
+                          --private-key "$SSH_KEY"
+                    '''
                 }
             }
         }
