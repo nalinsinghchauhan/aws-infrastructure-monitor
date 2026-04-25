@@ -9,3 +9,7 @@ output "public_ip" {
 output "security_group_id" {
   value = aws_security_group.app.id
 }
+
+output "jenkins_public_ip" {
+  value = aws_instance.jenkins_server.public_ip
+}
