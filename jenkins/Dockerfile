@@ -10,7 +10,6 @@ RUN apt-get update -y && apt-get install -y \
     ansible \
     wget \
     gnupg \
-    software-properties-common \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Terraform
