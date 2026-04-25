@@ -1,3 +1,5 @@
+// Pipeline v2 - python3 pre-installed
+
 pipeline {
     agent any
 
