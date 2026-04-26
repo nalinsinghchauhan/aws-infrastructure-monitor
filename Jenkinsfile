@@ -36,6 +36,9 @@ pipeline {
         }
 
         stage('Terraform Plan') {
+            when {
+                changeset "terraform/**"
+            }
             steps {
                 withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials']]) {
                     sh 'terraform -chdir=terraform init'
@@ -45,12 +48,18 @@ pipeline {
         }
 
         stage('Approval') {
+            when {
+                changeset "terraform/**"
+            }
             steps {
                 input message: 'Apply Terraform changes?', ok: 'Yes, Apply'
             }
         }
 
         stage('Terraform Apply') {
+            when {
+                changeset "terraform/**"
+            }
             steps {
                 withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials']]) {
                     sh 'terraform -chdir=terraform apply -auto-approve tfplan'
