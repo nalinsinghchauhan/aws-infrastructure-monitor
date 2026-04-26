@@ -72,6 +72,7 @@ pipeline {
                 withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials']]) {
                     sh '''#!/usr/bin/env bash
 set -euo pipefail
+terraform -chdir=terraform init -input=false
 EC2_IP="$(terraform -chdir=terraform output -raw ec2_public_ip)"
 cat > ansible/inventory/hosts.ini <<EOF
 [app_servers]
