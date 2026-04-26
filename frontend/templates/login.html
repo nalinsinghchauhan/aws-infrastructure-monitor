@@ -3,38 +3,44 @@
 {% block title %}Login | AWS Infrastructure Monitor{% endblock %}
 
 {% block content %}
-<section class="card auth-card">
-    <h2>Login</h2>
-    {% if error %}
-    <p class="error">{{ error }}</p>
-    {% endif %}
+<section class="auth-page">
+    <section class="auth-card">
+        <header class="auth-header">
+            <p>AWS Infrastructure Monitor</p>
+            <h1>Sign in to your account</h1>
+        </header>
 
-    <form method="post" action="{{ url_for('auth.login') }}" class="stack">
-        <label>Username
-            <input name="username" required>
-        </label>
-        <label>Password
-            <input type="password" name="password" required>
-        </label>
-        <button class="btn" type="submit">Sign In</button>
-    </form>
+        {% if error %}
+        <p class="error">{{ error }}</p>
+        {% endif %}
 
-    <hr>
+        <form method="post" action="{{ url_for('auth.login') }}" class="stack">
+            <label>Username
+                <input name="username" required>
+            </label>
+            <label>Password
+                <input type="password" name="password" required>
+            </label>
+            <button class="btn" type="submit">Sign In</button>
+        </form>
 
-    <h3>Register</h3>
-    <form id="register-form" class="stack">
-        <label>Username
-            <input name="username" required>
-        </label>
-        <label>Email
-            <input type="email" name="email" required>
-        </label>
-        <label>Password
-            <input type="password" name="password" required>
-        </label>
-        <button class="btn" type="submit">Create Account</button>
-    </form>
-    <p id="register-message"></p>
+        <hr class="divider">
+
+        <h3>Create an account</h3>
+        <form id="register-form" class="stack">
+            <label>Username
+                <input name="username" required>
+            </label>
+            <label>Email
+                <input type="email" name="email" required>
+            </label>
+            <label>Password
+                <input type="password" name="password" required>
+            </label>
+            <button class="btn" type="submit">Create Account</button>
+        </form>
+        <p id="register-message"></p>
+    </section>
 </section>
 
 <script>
